@@ -1,0 +1,38 @@
+{
+    "scenario": "Critical",
+    "sensor_data": {
+        "Air temperature [K]": 303.639,
+        "Process temperature [K]": 316.025,
+        "Rotational speed [rpm]": 2377.503,
+        "Torque [Nm]": 63.893,
+        "Tool wear [min]": 200.473
+    },
+    "failure_risk": 0.405,
+    "predicted_failure": true,
+    "risk_level": "Warning",
+    "anomaly_detected": true,
+    "anomaly_score": 0.1289,
+    "recommendations": {
+        "risk_level": "Warning",
+        "maintenance": {
+            "priority": "Medium",
+            "actions": [
+                "Schedule preventive maintenance inspection.",
+                "Monitor torque and rotational speed closely.",
+                "Check tool wear and temperature conditions.",
+                "Continue monitoring the machine for increasing risk."
+            ]
+        },
+        "sensor": [
+            "Inspect torque conditions for unusually high machine load.",
+            "Check rotational speed for unusually high operating speed.",
+            "Inspect tool wear and consider tool maintenance or replacement.",
+            "Check thermal conditions because the process-to-air temperature difference is elevated."
+        ],
+        "anomaly": [
+            "Investigate the detected machine anomaly.",
+            "Review the anomaly score (0.129) alongside current machine conditions.",
+            "Check recent sensor readings and machine operating conditions."
+        ]
+    }
+}

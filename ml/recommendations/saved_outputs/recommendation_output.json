@@ -1,0 +1,34 @@
+{
+    "test_sample_index": 35,
+    "actual_failure": 1,
+    "failure_risk": 0.945,
+    "risk_level": "Critical",
+    "anomaly_detected": true,
+    "anomaly_score": 0.0614,
+    "sensor_data": {
+        "Air temperature [K]": 298.9,
+        "Process temperature [K]": 310.2,
+        "Rotational speed [rpm]": 2737.0,
+        "Torque [Nm]": 8.8,
+        "Tool wear [min]": 142.0
+    },
+    "recommendations": {
+        "risk_level": "Critical",
+        "priority": "High",
+        "maintenance_actions": [
+            "Schedule immediate machine inspection.",
+            "Check torque and rotational speed conditions.",
+            "Inspect tool wear and machine operating condition.",
+            "Review recent anomaly and failure-risk signals before continued operation."
+        ],
+        "sensor_recommendations": [
+            "Check rotational speed for unusually high operating speed."
+        ],
+        "anomaly_recommendations": [
+            "Investigate the detected machine anomaly.",
+            "Review the anomaly score (0.061) alongside current machine conditions.",
+            "Check recent sensor readings and machine operating conditions."
+        ]
+    },
+    "validated": true
+}

@@ -1,0 +1,47 @@
+{
+    "model": "Random Forest Failure Prediction",
+    "xai_method": "Built-in Random Forest Feature Importance",
+    "feature_importance": [
+        {
+            "feature": "numerical__Torque [Nm]",
+            "importance": 0.30515122027692915,
+            "importance_percent": 30.52
+        },
+        {
+            "feature": "numerical__Rotational speed [rpm]",
+            "importance": 0.2974691204444409,
+            "importance_percent": 29.75
+        },
+        {
+            "feature": "numerical__Tool wear [min]",
+            "importance": 0.20404784846035504,
+            "importance_percent": 20.4
+        },
+        {
+            "feature": "numerical__Air temperature [K]",
+            "importance": 0.10118105664929343,
+            "importance_percent": 10.12
+        },
+        {
+            "feature": "numerical__Process temperature [K]",
+            "importance": 0.07196699522562883,
+            "importance_percent": 7.2
+        },
+        {
+            "feature": "categorical__Type_0",
+            "importance": 0.009426624389809292,
+            "importance_percent": 0.94
+        },
+        {
+            "feature": "categorical__Type_1",
+            "importance": 0.0067460130376227724,
+            "importance_percent": 0.67
+        },
+        {
+            "feature": "categorical__Type_2",
+            "importance": 0.004011121515920699,
+            "importance_percent": 0.4
+        }
+    ],
+    "validated": true
+}

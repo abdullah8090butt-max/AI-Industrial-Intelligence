@@ -1,0 +1,38 @@
+import MainLayout from './components/MainLayout';
+
+function App() {
+  return (
+    <MainLayout>
+      <div
+        style={{
+          minHeight: '100vh',
+          padding: '40px',
+          background: '#f5f7fa',
+        }}
+      >
+        <h1>AI Industrial Intelligence</h1>
+
+        <p>React + TypeScript Frontend</p>
+
+        <div
+          style={{
+            marginTop: '20px',
+            padding: '20px',
+            background: '#ffffff',
+            borderRadius: '12px',
+            border: '1px solid #e5e7eb',
+          }}
+        >
+          <h2>System Dashboard</h2>
+          <p>Frontend application initialized successfully.</p>
+
+          <strong style={{ color: 'green' }}>
+            System Online
+          </strong>
+        </div>
+      </div>
+    </MainLayout>
+  );
+}
+
+export default App;
