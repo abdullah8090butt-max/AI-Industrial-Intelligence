@@ -1,62 +1,70 @@
 # AI Industrial Intelligence & Predictive Maintenance System
 
-A full-stack AI/ML application for industrial machine monitoring, anomaly detection, predictive maintenance, sensor forecasting, explainable AI, maintenance recommendations, simulation, and a grounded AI Industrial Copilot.
+An AI-powered industrial monitoring and predictive maintenance system built with **Python, Machine Learning, FastAPI, React, and TypeScript**.
 
-## Overview
+The system analyzes machine sensor data to detect anomalies, estimate failure risk, forecast temperature trends, provide built-in feature-importance explanations, generate maintenance recommendations, simulate changing machine conditions, and provide a grounded **AI Industrial Copilot** for natural-language machine analysis.
 
-The **AI Industrial Intelligence & Predictive Maintenance System** combines machine-learning models with a FastAPI backend and React + TypeScript frontend to provide an integrated industrial intelligence platform.
-
-The system can:
-
-* Monitor machine sensor conditions
-* Detect abnormal machine behavior
-* Estimate machine failure risk
-* Predict future temperature readings
-* Explain model-level feature importance
-* Generate maintenance recommendations
-* Simulate different machine operating conditions
-* Provide a grounded AI Industrial Copilot
-* Expose AI capabilities through REST APIs
-* Display results through a web dashboard
-
-The project is designed as a practical portfolio project for AI and Python development.
+**Project status:** Portfolio-ready and GitHub-published.
 
 ---
 
-# Architecture
+## Key Capabilities
 
-```text id="d8x4te"
-                         USER
-                           │
-                           ▼
-                React + TypeScript Frontend
-                           │
-                           │ REST API
-                           ▼
-                    FastAPI Backend
-                           │
-             ┌─────────────┼─────────────┐
-             │             │             │
-             ▼             ▼             ▼
-        Predictive     Anomaly       Forecasting
-        Maintenance    Detection      Service
-             │             │             │
-             └─────────────┼─────────────┘
-                           │
-                           ▼
-                  Explainable AI
-                           │
-                           ▼
-              Recommendation Engine
-                           │
-                           ▼
-                  Machine Simulator
-                           │
-                           ▼
-                 AI Industrial Copilot
+* Predictive maintenance and machine failure-risk estimation
+* Sensor anomaly detection using Isolation Forest
+* Temperature time-series forecasting
+* Built-in feature-importance XAI
+* Automated maintenance recommendations
+* Normal/Warning/Critical machine simulation
+* FastAPI REST backend
+* React + TypeScript dashboard
+* Grounded AI Industrial Copilot
+* Validated ML models, APIs, simulator transitions, and frontend build
+
+---
+
+## Architecture
+
+```text
+React + TypeScript Frontend
+          │
+          │ REST API
+          ▼
+FastAPI Backend
+          │
+          ├── Machine Status
+          ├── Failure Risk
+          ├── Anomaly Detection
+          ├── Recommendations
+          ├── Forecasting
+          ├── XAI
+          └── Industrial Copilot
+          │
+          ▼
+Python ML Services
+          │
+          ├── Predictive Maintenance
+          ├── Isolation Forest
+          ├── Time-Series Forecasting
+          ├── Feature Importance
+          ├── Recommendation Engine
+          └── Machine Simulator
 ```
 
-## Main Layers
+---
+
+## Main Technology Stack
+
+### Backend
+
+* Python
+* FastAPI
+* Pydantic
+* Uvicorn
+* Pandas
+* NumPy
+* Scikit-learn
+* Joblib
 
 ### Frontend
 
@@ -64,36 +72,15 @@ The project is designed as a practical portfolio project for AI and Python devel
 * TypeScript
 * Vite
 * Recharts
-* REST API integration
 
-### Backend
+### Machine Learning
 
-* FastAPI
-* Pydantic
-* Uvicorn
-* CORS
-
-### AI/ML
-
-* Scikit-learn
 * Random Forest
 * Isolation Forest
+* Random Forest time-series forecasting
 * StandardScaler
-* Feature engineering
-* Time-series lag features
-
-### Data Processing & Visualization
-
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Plotly
-
-### Data
-
-* UCI AI4I 2020 Predictive Maintenance Dataset
-* IoT sensor telemetry dataset
+* One-hot encoding
+* Built-in Random Forest feature importance
 
 ---
 
@@ -101,9 +88,9 @@ The project is designed as a practical portfolio project for AI and Python devel
 
 ## 1. Predictive Maintenance
 
-A Random Forest classifier estimates machine failure risk from industrial sensor conditions.
+A Random Forest classifier estimates machine failure risk from processed sensor and machine-type features.
 
-Features include:
+Input features include:
 
 * Air temperature
 * Process temperature
@@ -112,32 +99,24 @@ Features include:
 * Tool wear
 * Machine type
 
-The final decision threshold is:
+The final operating threshold is **0.40**.
 
-```text
-0.40
-```
+Verified unseen test results:
 
-### Unseen Test Results
-
-| Metric            | Result |
-| ----------------- | -----: |
-| Accuracy          |   0.97 |
-| Failure Precision |   0.56 |
-| Failure Recall    |   0.69 |
-| Failure F1        |   0.61 |
-| ROC-AUC           | 0.9575 |
-| PR-AUC            | 0.7300 |
-
-The model is intended as a portfolio demonstration and has not been validated as a production industrial safety system.
+* Failure precision: 0.56
+* Failure recall: 0.69
+* F1-score: 0.61
+* Accuracy: 0.97
+* ROC-AUC: 0.9575
+* PR-AUC: 0.7300
 
 ---
 
 ## 2. Anomaly Detection
 
-The system uses Isolation Forest to identify unusual machine conditions.
+The system uses **Isolation Forest** to identify unusual machine operating conditions.
 
-Final configuration:
+Configuration:
 
 ```text
 n_estimators = 100
@@ -145,51 +124,53 @@ contamination = 0.05
 random_state = 42
 ```
 
-The detector is integrated with the machine-status and recommendation services.
+The anomaly model was trained using normal operating records and validated on unseen data.
 
-An anomaly indicates an unusual sensor pattern. It does not automatically mean that a machine has failed.
+Verified validation:
+
+* Test records: 1,500
+* Detected anomalies: 68
+* Contamination setting: 5%
+
+Higher anomaly scores represent more unusual observations.
 
 ---
 
 ## 3. Temperature Forecasting
 
-A Random Forest forecasting model predicts the next temperature reading using recent historical values.
+A Random Forest regression model forecasts the next temperature value using recent temperature history and temporal features.
 
-### Lag Features
+Features include:
 
-```text
-lag_1
-lag_2
-lag_3
-lag_6
-lag_12
-```
+* Lag 1
+* Lag 2
+* Lag 3
+* Lag 6
+* Lag 12
+* Hour
+* Day of week
 
-### Time Features
+Verified test results:
 
-```text
-hour
-day_of_week
-```
+* MAE: **3.8896**
+* RMSE: **4.8093**
 
-### Final Results
+Compared with the persistence baseline:
 
-| Metric                       | Result |
-| ---------------------------- | -----: |
-| MAE                          | 3.8896 |
-| RMSE                         | 4.8093 |
-| MAE Improvement vs Baseline  | 30.50% |
-| RMSE Improvement vs Baseline | 29.70% |
+* MAE improvement: **30.50%**
+* RMSE improvement: **29.70%**
 
-The API requires at least 12 historical temperature readings.
+The API requires at least **12 historical readings**.
 
 ---
 
 ## 4. Explainable AI
 
-The project uses **Random Forest's built-in feature importance** for model-level explanation.
+The project uses **built-in Random Forest feature importance** as its explainability method.
 
-### Feature Importance
+This is documented as feature-importance XAI rather than SHAP-based explainability.
+
+Verified feature importance:
 
 | Feature             | Importance |
 | ------------------- | ---------: |
@@ -198,37 +179,34 @@ The project uses **Random Forest's built-in feature importance** for model-level
 | Tool wear           |     20.40% |
 | Air temperature     |     10.12% |
 | Process temperature |      7.20% |
+| Type 0              |      0.94% |
+| Type 1              |      0.67% |
+| Type 2              |      0.40% |
 
-The implementation intentionally does not claim SHAP-based explanations.
+The top three features account for approximately **84.67%** of total feature importance.
 
-Feature importance describes how the trained model uses features overall. It should not be interpreted as a causal explanation or as an exact contribution for an individual prediction.
+Feature importance describes the model's learned contribution to predictions and should not be interpreted as proof of causation.
 
 ---
 
 ## 5. Recommendation Engine
 
-Maintenance recommendations combine:
+The recommendation engine combines:
 
 * Failure-risk level
 * Sensor conditions
-* Anomaly detection
+* Anomaly information
+* Maintenance rules
 
-The system can recommend actions such as:
+Example recommendations can include:
 
-* Machine inspection
-* Torque and rotational-speed checks
-* Tool-wear inspection
-* Temperature-condition checks
-* Preventive maintenance
-* Continued monitoring
+* Inspect machine condition
+* Check torque and rotational speed
+* Inspect tool wear
+* Monitor temperature conditions
+* Continue routine preventive maintenance
 
-Recommendations are rule-based and are intended to support, rather than replace, qualified maintenance decisions.
-
----
-
-## 6. Machine Simulator
-
-The simulator provides three operating scenarios:
+Risk levels are represented as:
 
 ```text
 Normal
@@ -236,47 +214,201 @@ Warning
 Critical
 ```
 
-It generates bounded sensor readings and allows the complete AI pipeline to be tested without physical industrial hardware.
+The recommendation system was validated with normal, warning, and critical operating conditions.
 
-Transition testing verified:
+---
+
+## 6. Real-Time Machine Simulator
+
+The simulator generates sensor readings for three operating scenarios:
+
+```text
+Normal
+Warning
+Critical
+```
+
+The simulator adds controlled sensor variation while keeping readings within defined physical ranges.
+
+Verified transition test:
 
 ```text
 Normal → Warning → Critical → Normal
 ```
 
-The scenario names represent simulated operating conditions and do not necessarily correspond directly to the predictive-maintenance model's risk labels.
+Result:
+
+```text
+Sequence valid: True
+All transition results valid: True
+```
+
+The simulator also produces machine risk, anomaly, and recommendation information.
 
 ---
 
 ## 7. AI Industrial Copilot
 
-The Copilot provides natural-language access to verified backend tools.
+The AI Industrial Copilot provides natural-language access to verified backend functions.
 
-Supported capabilities include:
+Supported tools:
 
 ```text
-get_machine_status
-get_failure_risk
-get_recent_anomalies
-get_machine_history
-get_forecast
-get_explanation
-get_recommendations
+get_machine_status()
+get_failure_risk()
+get_recent_anomalies()
+get_machine_history()
+get_forecast()
+get_explanation()
+get_recommendations()
 ```
 
-### Example Questions
+Example questions:
 
 ```text
 What is the current machine status?
 What is the failure risk?
-Are there any recent anomalies?
-What is the temperature forecast?
+Are there any anomalies?
 Explain the prediction.
-What maintenance actions are recommended?
-Show the recent machine history.
+What is the temperature forecast?
+What maintenance is recommended?
+Show the machine history.
 ```
 
-The Copilot uses deterministic backend routing and verified system data rather than unsupported industrial claims.
+The Copilot uses deterministic query routing to select the appropriate backend tool. It is designed as a **grounded industrial assistant**, rather than an autonomous system that invents machine information.
+
+---
+
+# API Documentation
+
+Base URL during local development:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Machine APIs
+
+| Method | Endpoint                   | Purpose                                                  |
+| ------ | -------------------------- | -------------------------------------------------------- |
+| POST   | `/machine/status`          | Get machine status and combined risk/anomaly information |
+| POST   | `/machine/failure-risk`    | Calculate failure risk                                   |
+| POST   | `/machine/anomaly`         | Detect anomaly status                                    |
+| POST   | `/machine/recommendations` | Generate maintenance recommendations                     |
+| POST   | `/machine/forecast`        | Forecast temperature                                     |
+| POST   | `/machine/explanation`     | Return feature-importance explanation                    |
+
+## Copilot APIs
+
+| Method | Endpoint                  | Purpose                                  |
+| ------ | ------------------------- | ---------------------------------------- |
+| POST   | `/machine/copilot/status` | Get Copilot machine status               |
+| POST   | `/machine/copilot/query`  | Process a natural-language Copilot query |
+
+## System APIs
+
+| Method | Endpoint             | Purpose             |
+| ------ | -------------------- | ------------------- |
+| GET    | `/`                  | Backend root/status |
+| GET    | `/health`            | Health check        |
+| GET    | `/dashboard/summary` | Dashboard summary   |
+
+FastAPI automatically provides interactive API documentation at:
+
+```text
+/docs
+```
+
+---
+
+# Frontend
+
+The frontend is built using React, TypeScript, Vite, and Recharts.
+
+## Pages
+
+### Dashboard
+
+Provides an overall system overview including machine KPIs and system status.
+
+### Machine Monitoring
+
+Displays machine sensor information and current machine analysis.
+
+### Anomalies
+
+Displays anomaly-related machine information.
+
+### Predictive Maintenance
+
+Displays failure risk and maintenance information.
+
+### Forecasting
+
+Displays temperature forecasting information.
+
+### AI Industrial Copilot
+
+Provides natural-language access to the backend industrial intelligence tools.
+
+## Frontend Routes
+
+```text
+/
+ /machines
+ /anomalies
+ /maintenance
+ /forecasting
+ /copilot
+```
+
+The production frontend build was successfully verified using:
+
+```text
+npm run build
+```
+
+Result:
+
+```text
+TypeScript compilation: SUCCESS
+Vite production build: SUCCESS
+598 modules transformed
+Build completed successfully
+```
+
+Vite reported a JavaScript chunk-size warning above 500 KB. This is an optimization warning and does not prevent the production build from succeeding.
+
+---
+
+# Dataset Overview
+
+## AI4I 2020 Predictive Maintenance Dataset
+
+The primary predictive-maintenance dataset contains:
+
+* 10,000 records
+* Machine sensor measurements
+* Machine failure labels
+* Failure-type indicators
+
+Main sensor features:
+
+```text
+Air temperature
+Process temperature
+Rotational speed
+Torque
+Tool wear
+```
+
+The dataset contains **339 machine-failure records** and **9,661 normal records**.
+
+## Temperature Telemetry Dataset
+
+A secondary telemetry dataset is used for time-series forecasting.
+
+The project selects temperature readings and prepares them chronologically for model training and testing.
 
 ---
 
@@ -284,23 +416,22 @@ The Copilot uses deterministic backend routing and verified system data rather t
 
 ## Data Preprocessing
 
-The predictive-maintenance dataset is processed through the following pipeline:
+The preprocessing pipeline:
 
-1. Remove identifier columns that are not useful for prediction.
-2. Convert machine type into numerical/categorical features.
-3. Separate numerical sensor features from categorical machine-type features.
-4. Standardize numerical features using `StandardScaler`.
-5. Split the data into training, validation, and unseen test sets using stratification.
-6. Preserve the original failure distribution without synthetic oversampling.
+1. Removes identifier fields that are not useful for prediction.
+2. Converts machine type into numerical/categorical features.
+3. Standardizes numerical features.
+4. One-hot encodes machine type.
+5. Performs a stratified train/validation/test split.
+6. Preserves the failure class distribution across splits.
 
-### Main Predictive-Maintenance Features
+Final predictive-maintenance split:
 
-* Air temperature
-* Process temperature
-* Rotational speed
-* Torque
-* Tool wear
-* Machine type
+```text
+Training:   7,000
+Validation: 1,500
+Testing:    1,500
+```
 
 ---
 
@@ -308,283 +439,49 @@ The predictive-maintenance dataset is processed through the following pipeline:
 
 ```text
 Raw Sensor Data
-       │
-       ▼
-Data Preprocessing
-       │
-       ▼
-Feature Transformation
-       │
-       ▼
-Random Forest Model
-       │
-       ▼
+      ↓
+Preprocessing
+      ↓
+Feature Engineering
+      ↓
+Random Forest
+      ↓
 Failure Probability
-       │
-       ▼
-Decision Threshold = 0.40
-       │
-       ▼
+      ↓
+Threshold 0.40
+      ↓
 Risk Level
-Normal / Warning / Critical
 ```
-
-The Random Forest model is evaluated on an unseen test set after model selection and threshold tuning on validation data.
 
 ---
 
 ## Anomaly Detection Pipeline
 
-Isolation Forest is trained using normal operating records and then applied to unseen machine conditions.
-
 ```text
-Sensor Data
-    │
-    ▼
-Numerical Sensor Features
-    │
-    ▼
+Normal Training Records
+          ↓
 Isolation Forest
-    │
-    ▼
+          ↓
 Anomaly Score
-    │
-    ▼
-Normal / Anomalous
-```
-
-Final contamination setting:
-
-```text
-0.05
+          ↓
+Anomaly Detection
 ```
 
 ---
 
 ## Forecasting Pipeline
 
-Temperature forecasting uses chronological time-series data.
-
-Recent temperature observations are converted into lag features:
-
 ```text
-lag_1
-lag_2
-lag_3
-lag_6
-lag_12
+Historical Temperature
+          ↓
+Lag Features
+          ↓
+Temporal Features
+          ↓
+Random Forest Regression
+          ↓
+Next Temperature Forecast
 ```
-
-Time-based features:
-
-```text
-hour
-day_of_week
-```
-
-The forecasting model uses a chronological train/test split to avoid using future observations during training.
-
-```text
-Historical Temperature Data
-          │
-          ▼
-Chronological Split
-          │
-          ▼
-Lag Feature Generation
-          │
-          ▼
-Random Forest Forecasting Model
-          │
-          ▼
-Next Temperature Prediction
-```
-
----
-
-## Explainability Methodology
-
-The predictive-maintenance Random Forest exposes built-in feature importance.
-
-This provides a model-level view of which input features are most influential to the trained model across the dataset.
-
-The project does not claim:
-
-* SHAP explanations
-* Individual feature contributions
-* Causal relationships
-
----
-
-## Validation Strategy
-
-The project uses separate validation and unseen test data where applicable.
-
-Validation data is used for:
-
-* Model comparison
-* Threshold selection
-* Pipeline verification
-
-The unseen test set is used for final predictive-maintenance performance reporting.
-
-Additional regression testing validates:
-
-* Saved model loading
-* Prediction outputs
-* API responses
-* Input validation
-* Simulator transitions
-* Copilot routing
-* Frontend/backend integration
-
----
-
-# API Documentation
-
-The backend is implemented using FastAPI and exposes REST endpoints for machine intelligence and Copilot functionality.
-
-Interactive Swagger documentation is available at:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-## General Endpoints
-
-### `GET /`
-
-Returns the basic application status, project name, and environment.
-
-### `GET /health`
-
-Returns the backend health status.
-
-### `GET /dashboard/summary`
-
-Returns dashboard-level machine statistics and overall system status.
-
----
-
-## Machine Intelligence Endpoints
-
-### `POST /machine/status`
-
-Returns a combined machine-status result containing:
-
-* Machine status
-* Failure risk
-* Predicted failure
-* Anomaly status
-* Anomaly score
-* Sensor data
-
-### `POST /machine/failure-risk`
-
-Runs the predictive-maintenance model and returns:
-
-* Failure risk
-* Predicted failure
-* Risk level
-
-### `POST /machine/anomaly`
-
-Runs the Isolation Forest anomaly detector and returns:
-
-* Anomaly status
-* Anomaly score
-
-### `POST /machine/recommendations`
-
-Combines predictive-maintenance and anomaly results with rule-based maintenance recommendations.
-
-Returns information about:
-
-* Risk level
-* Maintenance actions
-* Sensor conditions
-* Anomaly information
-
-### `POST /machine/forecast`
-
-Accepts recent temperature history and predicts the next temperature value.
-
-The endpoint requires at least **12 historical temperature readings**.
-
-Returns:
-
-* Sensor name
-* Forecast value
-* Number of history points
-
-### `POST /machine/explanation`
-
-Processes machine sensor data through the predictive-maintenance preprocessing pipeline and returns model-level feature-importance information.
-
----
-
-## Copilot Endpoints
-
-### `POST /machine/copilot/status`
-
-Returns machine-status information through the Copilot service.
-
-### `POST /machine/copilot/query`
-
-Accepts a natural-language industrial question and sensor data.
-
-The backend routes the question to the appropriate verified Copilot tool.
-
-Supported tool routing includes:
-
-```text
-get_machine_status
-get_failure_risk
-get_recent_anomalies
-get_machine_history
-get_forecast
-get_explanation
-get_recommendations
-```
-
----
-
-## API Input Validation
-
-Pydantic validation protects the API from invalid sensor values and malformed requests.
-
-Examples:
-
-```text
-Invalid tool wear value → HTTP 422
-Out-of-range temperature → HTTP 422
-Insufficient forecast history → HTTP 422
-Empty Copilot query → HTTP 422
-```
-
----
-
-# Frontend Pages
-
-The React application includes:
-
-```text
-/
-/machines
-/anomalies
-/maintenance
-/forecasting
-/copilot
-```
-
-The frontend provides access to:
-
-* Dashboard monitoring
-* Machine monitoring
-* Anomaly information
-* Predictive maintenance
-* Temperature forecasting
-* AI Industrial Copilot
 
 ---
 
@@ -595,39 +492,39 @@ AI-Industrial-Intelligence/
 │
 ├── backend/
 │   ├── api/
-│   ├── models/
+│   ├── app/
 │   ├── schemas/
 │   ├── services/
 │   ├── config.py
 │   └── main.py
 │
 ├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── services/
-│   ├── package.json
-│   └── vite.config.ts
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       └── App.tsx
+│
+├── ml/
+│   ├── anomaly_detection/
+│   ├── explainability/
+│   ├── forecasting/
+│   ├── predictive_maintenance/
+│   ├── preprocessing/
+│   ├── recommendations/
+│   └── simulator/
 │
 ├── data/
 │   ├── raw/
 │   └── processed/
 │
-├── ml/
-│   ├── preprocessing/
-│   ├── anomaly_detection/
-│   ├── predictive_maintenance/
-│   ├── forecasting/
-│   ├── explainability/
-│   ├── recommendations/
-│   └── simulator/
-│
-├── simulator/
-├── reports/
 ├── notebooks/
-├── tests/
+├── schemas/
 ├── docs/
+├── tests/
 │
+├── .env.example
 ├── .gitignore
 ├── README.md
 └── requirements.txt
@@ -637,49 +534,52 @@ AI-Industrial-Intelligence/
 
 # Installation
 
-## 1. Clone the Repository
+## Backend
 
-Replace the placeholder with the actual GitHub repository URL after the repository is created.
-
-```powershell
-git clone <YOUR-GITHUB-REPOSITORY-URL>
-cd AI-Industrial-Intelligence
-```
-
-## 2. Create the Python Virtual Environment
+From the project root:
 
 ```powershell
 python -m venv .venv
 ```
 
-Activate it:
+Activate the environment:
 
 ```powershell
-.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
 ```
 
-## 3. Install Python Dependencies
+Install Python dependencies:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-## 4. Install Frontend Dependencies
+---
+
+## Frontend
+
+Move into the frontend directory:
 
 ```powershell
 cd frontend
+```
+
+Install dependencies:
+
+```powershell
 npm install
-cd ..
 ```
 
 ---
 
-# Run the Backend
+# Running the Application
+
+## Start the FastAPI Backend
 
 From the project root:
 
 ```powershell
-.venv\Scripts\python.exe -m uvicorn backend.main:app --reload
+.\.venv\Scripts\python.exe -m uvicorn backend.main:app --reload
 ```
 
 Backend:
@@ -688,7 +588,7 @@ Backend:
 http://127.0.0.1:8000
 ```
 
-FastAPI documentation:
+API documentation:
 
 ```text
 http://127.0.0.1:8000/docs
@@ -696,12 +596,11 @@ http://127.0.0.1:8000/docs
 
 ---
 
-# Run the Frontend
+## Start the React Frontend
 
-Open a second terminal:
+From the frontend directory:
 
 ```powershell
-cd frontend
 npm run dev
 ```
 
@@ -715,89 +614,134 @@ http://localhost:5173/
 
 # Testing
 
-The project includes validation and regression testing for:
+The system was tested across multiple layers.
 
-* ML model artifacts
-* Predictive-maintenance predictions
-* Anomaly detection
-* Forecasting
-* Explainable AI
-* Recommendations
-* Simulator transitions
-* FastAPI endpoints
-* Input validation
-* Copilot routing
-* React frontend integration
-* End-to-end application flow
+## ML Validation
 
-### Example Validation
+* Predictive maintenance model validation
+* Anomaly detection validation
+* Forecasting validation
+* Saved-model reload verification
+
+## Edge Cases
+
+The API correctly rejects:
+
+* Negative tool-wear values
+* Out-of-range sensor values
+* Insufficient forecasting history
+* Empty Copilot queries
+
+Invalid requests return appropriate **HTTP 422** validation responses.
+
+## Simulator
+
+Verified:
 
 ```text
-Invalid tool wear value → HTTP 422
-Insufficient forecast history → HTTP 422
-Empty Copilot query → HTTP 422
-Valid Copilot request → Successful verified result
+Normal → Warning → Critical → Normal
 ```
 
-Core end-to-end regression testing verified successful communication between the React frontend, FastAPI backend, and AI/ML services.
+## API Regression
+
+Verified successful responses from:
+
+```text
+/machine/status
+/machine/failure-risk
+/machine/anomaly
+/machine/recommendations
+/machine/forecast
+/machine/copilot/query
+```
+
+## Frontend
+
+Verified that the main application routes load successfully:
+
+```text
+Dashboard
+Machines
+Anomalies
+Maintenance
+Forecasting
+Copilot
+```
+
+Production build:
+
+```text
+npm run build
+```
+
+Result:
+
+```text
+SUCCESS
+```
 
 ---
 
 # Model Limitations
 
-The project is intended as an AI engineering and portfolio demonstration.
+The system is a portfolio and educational industrial-intelligence project and has important limitations.
 
-Important limitations include:
-
-* Benchmark datasets do not represent every real industrial environment.
-* An anomaly does not automatically mean machine failure.
-* Forecasting performance depends on the available telemetry pattern.
-* Built-in feature importance is not a causal explanation.
-* Rule-based recommendations should support qualified maintenance decisions rather than replace them.
-* The simulator does not control or connect to physical industrial machinery.
-* Model performance can change when applied to different machines, sensors, operating conditions, or datasets.
-* The system has not been validated for real-world industrial safety or production deployment.
+* The predictive-maintenance model is trained on the AI4I 2020 dataset.
+* The forecasting model uses a separate telemetry dataset.
+* The simulator generates controlled synthetic variations.
+* Feature importance indicates model behavior, not causality.
+* Anomaly detection does not guarantee that an anomaly represents a mechanical failure.
+* Forecasting performance may differ on real industrial equipment.
+* The current dashboard uses a lightweight machine representation rather than a live industrial deployment.
+* Real industrial deployment would require domain-specific validation, monitoring, safety procedures, and production-grade infrastructure.
 
 ---
 
 # Project Status
 
-Core project development is complete.
+## Completed
 
-Completed areas include:
-
-* Data processing
-* Machine-learning models
-* Anomaly detection
+* Project architecture
+* Dataset understanding
+* Data preprocessing
+* Feature engineering
 * Predictive maintenance
-* Forecasting
+* Anomaly detection
+* Temperature forecasting
 * Explainable AI
-* Recommendations
-* Simulation
+* Recommendation engine
+* Machine simulator
 * FastAPI backend
 * React + TypeScript frontend
 * AI Industrial Copilot
-* Error handling
-* Regression testing
-* End-to-end integration
+* API validation
+* Frontend integration testing
+* End-to-end regression testing
+* Git initialization
+* GitHub repository publication
+* Production frontend build verification
 
-The final professional PDF report is maintained separately as the project documentation deliverable.
+The project has been validated locally and published to GitHub.
 
 ---
 
 # Future Improvements
 
-Possible future improvements include:
+Potential future improvements include:
 
-* Dynamic PDF report generation inside the deployed application
-* Database-backed historical machine records
-* More advanced forecasting models
-* Per-instance explainability
-* Authentication and user management
-* Real industrial sensor integration
-* Additional machine types and datasets
+* More industrial datasets
+* Additional sensor forecasting
+* More advanced anomaly-detection approaches
+* SHAP-based instance-level explanations
+* Real-time streaming telemetry
+* Persistent machine history
+* Authentication and user roles
 * Cloud deployment
-* Automated monitoring and alerting
+* Automated report generation
+* More advanced Copilot capabilities
+* Model monitoring and retraining workflows
+
+These are future extensions rather than requirements for the current portfolio version.
 
 ---
 
@@ -805,10 +749,21 @@ Possible future improvements include:
 
 **Abdullah Butt**
 
-**AI & Python Developer**
+AI & Python Developer
+
+Focus areas:
+
+* Python
+* Machine Learning
+* Computer Vision
+* Generative AI
+* AI Automation
+* FastAPI
+* React + TypeScript
+* Industrial AI
 
 ---
 
-## License
+# License
 
-This project is intended as a portfolio and educational AI engineering project.
+This project is provided for educational, portfolio, and demonstration purposes.
